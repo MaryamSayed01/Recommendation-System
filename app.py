@@ -1,26 +1,12 @@
 import streamlit as st
-from matplotlib import pyplot as plt
-import streamlit as st
-import time
-from sklearn.preprocessing import StandardScaler
-from sklearn.linear_model import LinearRegression
-from sklearn.model_selection import train_test_split
 import pandas as pd
 import numpy as np
 from tqdm import tqdm as tqdm
 
-X_train_feat = pd.read_csv('X_Train_Encoded_FeatEng_data.csv')
-X_valid_feat = pd.read_csv('X_Valid_Encoded_FeatEng_data.csv')
-y_train = pd.read_csv('y_Train_Encoded_FeatEng_data.csv')
-y_valid = pd.read_csv('y_Valid_Encoded_FeatEng_data.csv')
+df_feat = pd.read_csv('train_valid_feat.csv')
 
-train_feat = X_train_feat.copy()
-valid_feat = X_valid_feat.copy()
-valid_feat['cluster'] = y_valid
-tracks=[train_feat['track_name'],valid_feat['track_name']]
-tracks=pd.concat(tracks)
+tracks= df_feat['track_name']
 tracks=tracks.drop_duplicates()
-df_feat= pd.concat([train_feat, valid_feat], axis=0)
 
 columns = df_feat.columns
 cat_index = []
@@ -60,7 +46,7 @@ class SpotifyRecommender():
 #         sorting our data to be ascending by 'distance' feature
         res_data = res_data.sort_values('distance')
         res_data = res_data.drop_duplicates(subset = ['track_name'])
-        columns = ['track_name'] # name -> uri
+        columns = ['track_name', 'track_url'] # name -> uri
         # mapping
         return res_data[columns][:amount]
 
