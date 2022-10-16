@@ -10,31 +10,31 @@ def make_mi_scores(X, y, discrete_features):
     mi_scores = mi_scores.sort_values(ascending=False)
     return mi_scores
 
-X_train = pd.read_csv('X_Train_Encoded_FeatEng_data_PCA.csv')
-X_valid = pd.read_csv('X_Valid_Encoded_FeatEng_data_PCA.csv')
+# X_train = pd.read_csv('X_Train_Encoded_FeatEng_data_PCA.csv')
+# X_valid = pd.read_csv('X_Valid_Encoded_FeatEng_data_PCA.csv')
 X_train_feat = pd.read_csv('X_Train_Encoded_FeatEng_data.csv')
 X_valid_feat = pd.read_csv('X_Valid_Encoded_FeatEng_data.csv')
 y_train = pd.read_csv('y_Train_Encoded_FeatEng_data.csv')
 y_valid = pd.read_csv('y_Valid_Encoded_FeatEng_data.csv')
 
-mi_scores = make_mi_scores(X_train.iloc[:, :-1], y_train['Cluster'], discrete_features=False)
-train = X_train.copy()
+# mi_scores = make_mi_scores(X_train.iloc[:, :-1], y_train['Cluster'], discrete_features=False)
+# train = X_train.copy()
 train_feat = X_train_feat.copy()
-valid = X_valid.copy()
+# valid = X_valid.copy()
 valid_feat = X_valid_feat.copy()
-valid['cluster'] = y_valid
+# valid['cluster'] = y_valid
 valid_feat['cluster'] = y_valid
 tracks=[train_feat['track_name'],valid_feat['track_name']]
 tracks=pd.concat(tracks)
 tracks=tracks.drop_duplicates()
-df = pd.concat([train, valid], axis=0)
+# df = pd.concat([train, valid], axis=0)
 df_feat = pd.concat([train_feat, valid_feat], axis=0)
 
-columns = df.columns
+columns = df_feat.columns
 cat_index = []
 index = 0
 for col in columns:
-    if df[col].dtype == 'object':
+    if df_feat[col].dtype == 'object':
         cat_index.append(index)
     index +=1
 
