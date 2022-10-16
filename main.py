@@ -41,7 +41,7 @@ def main():
                 # time.sleep(2)
                 song_name= select
                 prediction,locs=model.predict(song_name)
-                st.table(prediction,locs)
+                st.table(prediction)
                 # st.info(f" {prediction} ")
         else:
             st.error('Please Enter All the Details')
